@@ -1,0 +1,69 @@
+[
+    {
+        "name": "create_album",
+        "description": "Create an album in the media management system.",
+        "input_params": [
+            {
+                "name": "album_name",
+                "type": "str",
+                "description": "name of the album",
+                "required": true
+            },
+            {
+                "name": "photos",
+                "type": "int",
+                "description": "number of photos in the album",
+                "required": true
+            },
+            {
+                "name": "owner_id",
+                "type": "int",
+                "description": "ID of the album owner",
+                "required": true
+            }
+        ],
+        "output_params": [
+            {
+                "name": "album_id",
+                "type": "int",
+                "description": "ID of the created album"
+            },
+            {
+                "name": "access_link",
+                "type": "str",
+                "description": "link to access the album"
+            }
+        ]
+    },
+    {
+        "name": "share_album",
+        "description": "Share an album with someone in the media management system.",
+        "input_params": [
+            {
+                "name": "access_link",
+                "type": "str",
+                "description": "link of the album to share",
+                "required": true
+            },
+            {
+                "name": "share_with",
+                "type": "str",
+                "description": "recipient to share the album with",
+                "required": true
+            },
+            {
+                "name": "message",
+                "type": "str",
+                "description": "optional message to accompany the share",
+                "required": true
+            }
+        ],
+        "output_params": [
+            {
+                "name": "share_id",
+                "type": "int",
+                "description": "ID of the shared album"
+            }
+        ]
+    }
+]

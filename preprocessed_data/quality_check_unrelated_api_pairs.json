@@ -1,0 +1,658 @@
+[
+    {
+        "name": "SkyScrapperFlightSearch",
+        "description": "Retrieves available flights for a given route using Skyscrapper API.",
+        "input_params": [
+            {
+                "name": "originSkyId",
+                "type": "string",
+                "description": "The originSkyId code can be extracted from the Search Airport API in the Flights collection.",
+                "required": true,
+                "enum": [],
+                "allowed_values": []
+            },
+            {
+                "name": "destinationSkyId",
+                "type": "string",
+                "description": "The destinationSkyId code can be extracted from the Search Airport API in the Flights collection.",
+                "required": true,
+                "enum": [],
+                "allowed_values": []
+            },
+            {
+                "name": "originEntityId",
+                "type": "string",
+                "description": "The originEntityId code can be extracted from the Search Airport API in the Flights collection.",
+                "required": true,
+                "enum": [],
+                "allowed_values": []
+            },
+            {
+                "name": "destinationEntityId",
+                "type": "string",
+                "description": "The destinationEntityId code can be extracted from the Search Airport API in the Flights collection.",
+                "required": true,
+                "enum": [],
+                "allowed_values": []
+            },
+            {
+                "name": "date",
+                "type": "string",
+                "description": "Departure or travel date. Format: YYYY-MM-DD",
+                "required": true,
+                "enum": [],
+                "allowed_values": []
+            },
+            {
+                "name": "returnDate",
+                "type": "string",
+                "description": "Return date. Format: YYYY-MM-DD",
+                "required": false,
+                "enum": [],
+                "allowed_values": []
+            },
+            {
+                "name": "cabinClass",
+                "type": "string",
+                "description": "Cabin class. Default value: economy",
+                "required": false,
+                "enum": [
+                    "economy",
+                    "premium_economy",
+                    "business",
+                    "first"
+                ],
+                "allowed_values": []
+            },
+            {
+                "name": "adults",
+                "type": "number",
+                "description": "Adults: 12+ years. Default value: 1",
+                "required": false,
+                "enum": [],
+                "allowed_values": []
+            },
+            {
+                "name": "children",
+                "type": "number",
+                "description": "Children: 2-12 years. Default value: 0",
+                "required": false,
+                "enum": [],
+                "allowed_values": []
+            },
+            {
+                "name": "infants",
+                "type": "number",
+                "description": "Infants: Under 2 years. Default value: 0",
+                "required": false,
+                "enum": [],
+                "allowed_values": []
+            },
+            {
+                "name": "sortBy",
+                "type": "string",
+                "description": "Sort By. Default value: best",
+                "required": false,
+                "enum": [],
+                "allowed_values": [
+                    "best",
+                    "price_high",
+                    "cheapest",
+                    "fastest",
+                    "outbound_take_off_time",
+                    "outbound_landing_time",
+                    "return_take_off_time",
+                    "return_landing_time"
+                ]
+            },
+            {
+                "name": "limit",
+                "type": "number",
+                "description": "Set a limit on the amount of records. Example: 100",
+                "required": false,
+                "enum": [],
+                "allowed_values": []
+            },
+            {
+                "name": "carriersIds",
+                "type": "string",
+                "description": "Filter the flight itinerary data by the carrier. Comma-separated format for multiple carriers. Example: -32672,-31435",
+                "required": false,
+                "enum": [],
+                "allowed_values": []
+            },
+            {
+                "name": "currency",
+                "type": "string",
+                "description": "Currency code. Default value: USD",
+                "required": false,
+                "enum": [],
+                "allowed_values": []
+            },
+            {
+                "name": "market",
+                "type": "string",
+                "description": "Market code. Default value: en-US",
+                "required": false,
+                "enum": [],
+                "allowed_values": []
+            },
+            {
+                "name": "countryCode",
+                "type": "string",
+                "description": "Country code. Default value: US",
+                "required": false,
+                "enum": [],
+                "allowed_values": []
+            }
+        ],
+        "output_params": [
+            {
+                "name": "flightId",
+                "type": "str",
+                "description": "The unique identifier of the flight.",
+                "required": false
+            },
+            {
+                "name": "isSelfTransfer",
+                "type": "bool",
+                "description": "Indicates whether the flight is a self-transfer flight.",
+                "required": false
+            },
+            {
+                "name": "isProtectedSelfTransfer",
+                "type": "bool",
+                "description": "Indicates whether the self-transfer flight is protected.",
+                "required": false
+            },
+            {
+                "name": "fareAttributes",
+                "type": "object",
+                "description": "The fare attributes of the flight.",
+                "required": false
+            },
+            {
+                "name": "isMashUp",
+                "type": "bool",
+                "description": "Indicates whether the flight is a mash-up flight.",
+                "required": false
+            },
+            {
+                "name": "hasFlexibleOptions",
+                "type": "bool",
+                "description": "Indicates whether the flight has flexible options.",
+                "required": false
+            },
+            {
+                "name": "score",
+                "type": "float",
+                "description": "The score of the flight.",
+                "required": false
+            },
+            {
+                "name": "minPrice",
+                "type": "float",
+                "description": "The minimum price of the flight.",
+                "required": false
+            },
+            {
+                "name": "maxPrice",
+                "type": "float",
+                "description": "The maximum price of the flight.",
+                "required": false
+            },
+            {
+                "name": "multiCityMinPrice",
+                "type": "float",
+                "description": "The minimum price of the multi-city flight.",
+                "required": false
+            },
+            {
+                "name": "multiCityMaxPrice",
+                "type": "float",
+                "description": "The maximum price of the multi-city flight.",
+                "required": false
+            },
+            {
+                "name": "originCity",
+                "type": "str",
+                "description": "The origin city of the flight.",
+                "required": false
+            },
+            {
+                "name": "originAirportId",
+                "type": "str",
+                "description": "The unique identifier of the origin airport.",
+                "required": false
+            },
+            {
+                "name": "originAirportName",
+                "type": "str",
+                "description": "The name of the origin airport.",
+                "required": false
+            },
+            {
+                "name": "destinationCity",
+                "type": "str",
+                "description": "The destination city of the flight.",
+                "required": false
+            },
+            {
+                "name": "destinationAirportId",
+                "type": "str",
+                "description": "The unique identifier of the destination airport.",
+                "required": false
+            },
+            {
+                "name": "destinationAirportName",
+                "type": "str",
+                "description": "The name of the destination airport.",
+                "required": false
+            },
+            {
+                "name": "carrierId",
+                "type": "str",
+                "description": "The unique identifier of the carrier.",
+                "required": false
+            },
+            {
+                "name": "carrierName",
+                "type": "str",
+                "description": "The name of the carrier.",
+                "required": false
+            },
+            {
+                "name": "carrierLogoUrl",
+                "type": "str",
+                "description": "The URL of the carrier logo.",
+                "required": false
+            },
+            {
+                "name": "formattedPrice",
+                "type": "str",
+                "description": "The formatted price of the flight.",
+                "required": false
+            },
+            {
+                "name": "sessionId",
+                "type": "str",
+                "description": "The unique identifier of the session.",
+                "required": false
+            },
+            {
+                "name": "destinationImageUrl",
+                "type": "str",
+                "description": "The URL of the destination image.",
+                "required": false
+            }
+        ]
+    },
+    {
+        "name": "RedditTopPostsBySubreddit",
+        "description": "Returns the top subreddit posts.",
+        "input_params": [
+            {
+                "name": "subreddit",
+                "type": "String",
+                "description": "The subreddit for which to fetch top posts.",
+                "required": true,
+                "enum": [],
+                "allowed_values": []
+            },
+            {
+                "name": "time",
+                "type": "String",
+                "description": "The time period for which to fetch top posts.",
+                "required": true,
+                "enum": [],
+                "allowed_values": []
+            },
+            {
+                "name": "cursor",
+                "type": "String",
+                "description": "A cursor for pagination.",
+                "required": false,
+                "enum": [],
+                "allowed_values": []
+            }
+        ],
+        "output_params": [
+            {
+                "name": "cursor",
+                "type": "str",
+                "description": "A cursor for pagination.",
+                "required": false
+            },
+            {
+                "name": "id",
+                "type": "str",
+                "description": "The id of the post.",
+                "required": false
+            },
+            {
+                "name": "numComments",
+                "type": "int",
+                "description": "The number of comments on the post.",
+                "required": false
+            },
+            {
+                "name": "created",
+                "type": "int",
+                "description": "The time the post was created.",
+                "required": false
+            },
+            {
+                "name": "score",
+                "type": "int",
+                "description": "The score of the post.",
+                "required": false
+            },
+            {
+                "name": "distinguishType",
+                "type": "str",
+                "description": "The type of distinction the post has.",
+                "required": false
+            },
+            {
+                "name": "isLocked",
+                "type": "bool",
+                "description": "Whether the post is locked.",
+                "required": false
+            },
+            {
+                "name": "isStickied",
+                "type": "bool",
+                "description": "Whether the post is stickied.",
+                "required": false
+            },
+            {
+                "name": "title",
+                "type": "str",
+                "description": "The title of the post.",
+                "required": false
+            },
+            {
+                "name": "author",
+                "type": "str",
+                "description": "The author of the post.",
+                "required": false
+            },
+            {
+                "name": "authorId",
+                "type": "str",
+                "description": "The id of the author of the post.",
+                "required": false
+            },
+            {
+                "name": "authorIsBlocked",
+                "type": "bool",
+                "description": "Whether the author of the post is blocked.",
+                "required": false
+            },
+            {
+                "name": "domain",
+                "type": "str",
+                "description": "The domain of the post.",
+                "required": false
+            },
+            {
+                "name": "postId",
+                "type": "str",
+                "description": "The id of the post.",
+                "required": false
+            },
+            {
+                "name": "upvoteRatio",
+                "type": "float",
+                "description": "The ratio of upvotes to downvotes on the post.",
+                "required": false
+            },
+            {
+                "name": "numDuplicates",
+                "type": "int",
+                "description": "The number of duplicate posts.",
+                "required": false
+            },
+            {
+                "name": "discussionType",
+                "type": "str",
+                "description": "The type of discussion the post is.",
+                "required": false
+            },
+            {
+                "name": "viewCount",
+                "type": "int",
+                "description": "The number of views the post has.",
+                "required": false
+            },
+            {
+                "name": "goldCount",
+                "type": "int",
+                "description": "The number of gold awards the post has.",
+                "required": false
+            },
+            {
+                "name": "isArchived",
+                "type": "bool",
+                "description": "Whether the post is archived.",
+                "required": false
+            },
+            {
+                "name": "contestMode",
+                "type": "bool",
+                "description": "Whether the post is in contest mode.",
+                "required": false
+            },
+            {
+                "name": "gildings",
+                "type": "object",
+                "description": "The gildings of the post.",
+                "required": false
+            },
+            {
+                "name": "postCategories",
+                "type": "array[]",
+                "description": "The categories of the post.",
+                "required": false
+            },
+            {
+                "name": "suggestedSort",
+                "type": "str",
+                "description": "The suggested sort for the post.",
+                "required": false
+            },
+            {
+                "name": "hidden",
+                "type": "bool",
+                "description": "Whether the post is hidden.",
+                "required": false
+            },
+            {
+                "name": "saved",
+                "type": "bool",
+                "description": "Whether the post is saved.",
+                "required": false
+            },
+            {
+                "name": "isGildable",
+                "type": "bool",
+                "description": "Whether the post is gildable.",
+                "required": false
+            },
+            {
+                "name": "isMediaOnly",
+                "type": "bool",
+                "description": "Whether the post is media only.",
+                "required": false
+            },
+            {
+                "name": "isSponsored",
+                "type": "bool",
+                "description": "Whether the post is sponsored.",
+                "required": false
+            },
+            {
+                "name": "isNSFW",
+                "type": "bool",
+                "description": "Whether the post is NSFW.",
+                "required": false
+            },
+            {
+                "name": "isMeta",
+                "type": "bool",
+                "description": "Whether the post is meta.",
+                "required": false
+            },
+            {
+                "name": "isSpoiler",
+                "type": "bool",
+                "description": "Whether the post is a spoiler.",
+                "required": false
+            },
+            {
+                "name": "isBlank",
+                "type": "bool",
+                "description": "Whether the post is blank.",
+                "required": false
+            },
+            {
+                "name": "sendReplies",
+                "type": "bool",
+                "description": "Whether replies can be sent to the post.",
+                "required": false
+            },
+            {
+                "name": "voteState",
+                "type": "int",
+                "description": "The vote state of the post.",
+                "required": false
+            },
+            {
+                "name": "permalink",
+                "type": "str",
+                "description": "The permalink of the post.",
+                "required": false
+            },
+            {
+                "name": "events",
+                "type": "object",
+                "description": "The events of the post.",
+                "required": false
+            },
+            {
+                "name": "eventsOnRender",
+                "type": "object",
+                "description": "The events on render of the post.",
+                "required": false
+            },
+            {
+                "name": "callToAction",
+                "type": "str",
+                "description": "The call to action of the post.",
+                "required": false
+            },
+            {
+                "name": "domainOverride",
+                "type": "str",
+                "description": "The domain override of the post.",
+                "required": false
+            },
+            {
+                "name": "impressionId",
+                "type": "str",
+                "description": "The impression id of the post.",
+                "required": false
+            },
+            {
+                "name": "isSurveyAd",
+                "type": "bool",
+                "description": "Whether the post is a survey ad.",
+                "required": false
+            },
+            {
+                "name": "impressionIdStr",
+                "type": "str",
+                "description": "The impression id string of the post.",
+                "required": false
+            },
+            {
+                "name": "isCreatedFromAdsUi",
+                "type": "bool",
+                "description": "Whether the post is created from ads ui.",
+                "required": false
+            },
+            {
+                "name": "adSupplementaryText",
+                "type": "str",
+                "description": "The ad supplementary text of the post.",
+                "required": false
+            },
+            {
+                "name": "adPromotedUserPostIds",
+                "type": "array[]",
+                "description": "The ad promoted user post ids of the post.",
+                "required": false
+            },
+            {
+                "name": "subcaption",
+                "type": "str",
+                "description": "The subcaption of the post.",
+                "required": false
+            },
+            {
+                "name": "crosspostRootId",
+                "type": "str",
+                "description": "The crosspost root id of the post.",
+                "required": false
+            },
+            {
+                "name": "crosspostParentId",
+                "type": "str",
+                "description": "The crosspost parent id of the post.",
+                "required": false
+            },
+            {
+                "name": "numCrossposts",
+                "type": "int",
+                "description": "The number of crossposts of the post.",
+                "required": false
+            },
+            {
+                "name": "isCrosspostable",
+                "type": "bool",
+                "description": "Whether the post is crosspostable.",
+                "required": false
+            },
+            {
+                "name": "liveCommentsWebsocket",
+                "type": "str",
+                "description": "The live comments websocket of the post.",
+                "required": false
+            },
+            {
+                "name": "source",
+                "type": "str",
+                "description": "The source of the post.",
+                "required": false
+            },
+            {
+                "name": "isOriginalContent",
+                "type": "bool",
+                "description": "Whether the post is original content.",
+                "required": false
+            },
+            {
+                "name": "contentCategories",
+                "type": "array[]",
+                "description": "The content categories of the post.",
+                "required": false
+            },
+            {
+                "name": "isScoreHidden",
+                "type": "bool",
+                "description": "Whether the score of the post is hidden.",
+                "required": false
+            }
+        ]
+    }
+]
